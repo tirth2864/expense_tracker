@@ -47,7 +47,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, categories }
           id="name"
           value={expense.name}
           onChange={(e) => setExpense({ ...expense, name: e.target.value })}
-          className="w-full rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="w-full p-2 rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           required
         />
       </div>
@@ -61,7 +61,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, categories }
           id="name"
           value={expense.description}
           onChange={(e) => setExpense({ ...expense, description: e.target.value })}
-          className="w-full rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="w-full p-2 rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           required
         />
       </div>
@@ -75,7 +75,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, categories }
           id="amount"
           value={expense.amount}
           onChange={(e) => setExpense({ ...expense, amount: e.target.value })}
-          className="w-full rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="w-full p-2 rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           min="0"
           step="0.01"
           required
@@ -91,7 +91,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, categories }
           id="date"
           value={expense.date}
           onChange={(e) => setExpense({ ...expense, date: e.target.value })}
-          className="w-full rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="w-full p-2 rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
           required
         />
       </div>
@@ -104,7 +104,7 @@ export const ExpenseForm: React.FC<ExpenseFormProps> = ({ onSubmit, categories }
           id="category"
           value={expense.category}
           onChange={(e) => setExpense({ ...expense, category: e.target.value })}
-          className="w-full rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          className="w-full p-2 rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
         >
           {categories.map((category) => (
             <option key={category} value={category}>

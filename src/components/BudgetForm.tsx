@@ -34,7 +34,7 @@ export const BudgetForm: React.FC<BudgetFormProps> = ({ onSubmit, currentBudget 
             id="budget"
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
-            className="flex-1 rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-lg"
+            className="flex-1 py-2 rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500 text-lg"
             placeholder="Enter amount"
             min="0"
             step="0.01"
