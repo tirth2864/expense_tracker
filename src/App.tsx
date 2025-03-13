@@ -23,6 +23,8 @@ function App() {
     };
   });
 
+  
+
   const [filter, setFilter] = useState<string>('all');
 
   useEffect(() => {
@@ -80,6 +82,11 @@ function App() {
     'other',
     ...state.customCategories,
   ];
+
+  const resetFilters = () => {
+    setFilter('all'); 
+  };
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
@@ -141,6 +148,7 @@ function App() {
               expenses={state.expenses}
               onDelete={handleExpenseDelete}
               filter={filter}
+              onResetFilters={resetFilters}
             />
           </div>
         </div>

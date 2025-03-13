@@ -7,28 +7,61 @@ interface ExpenseListProps {
   expenses: Expense[];
   onDelete: (id: string) => void;
   filter: string;
+  onResetFilters: () => void; 
 }
 
-export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, onDelete, filter }) => {
-  const [selectedDate, setSelectedDate] = useState<string>('');
+export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, onDelete, filter, onResetFilters }) => {
+  const [startDate, setStartDate] = useState<string>('');
+  const [endDate, setEndDate] = useState<string>('');
 
   const filteredExpenses = expenses.filter((expense) => {
     const matchesCategory = filter === 'all' || expense.category === filter;
-    const matchesDate = !selectedDate || expense.date === selectedDate;
-    return matchesCategory && matchesDate;
+    
+    const expenseDate = new Date(expense.date);
+    const withinDateRange =
+      (!startDate || new Date(startDate) <= expenseDate) &&
+      (!endDate || expenseDate <= new Date(endDate));
+
+    return matchesCategory && withinDateRange;
   });
+
+  const clearFilters = () => {
+    setStartDate('');
+    setEndDate('');
+    onResetFilters(); 
+  };
 
   return (
     <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2">
-      {/* Date Filter Input */}
-      <div className="mb-4">
-        <label className="block text-sm font-medium text-gray-700 mb-1">Filter by Date</label>
-        <input
-          type="date"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          className="w-full p-2 rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
-        />
+      {/* Date Range Filter */}
+      <div className="mb-4 flex gap-4 items-end">
+        <div className="flex-1">
+          <label className="block text-sm font-medium text-gray-700 mb-1">Start Date</label>
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+            className="w-full p-2 rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+
+        <div className="flex-1">
+          <label className="block text-sm font-medium text-gray-700 mb-1">End Date</label>
+          <input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+            className="w-full p-2 rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+          />
+        </div>
+
+        {/* Clear Button */}
+        <button
+          onClick={clearFilters}
+          className="px-4 py-2 bg-gray-200 rounded-lg hover:bg-gray-300 transition text-sm"
+        >
+          Clear 
+        </button>
       </div>
 
       {filteredExpenses.map((expense) => (
