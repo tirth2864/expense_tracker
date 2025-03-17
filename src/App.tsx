@@ -6,6 +6,7 @@ import { ExpenseForm } from './components/ExpenseForm';
 import { ExpenseList } from './components/ExpenseList';
 import { Summary } from './components/Summary';
 import { CategoryManager } from './components/CategoryManager';
+import { MonthlyExpenseSummary } from './components/MonthlyExpenseSummary';
 
 function App() {
   const [state, setState] = useState<ExpenseTrackerState>(() => {
@@ -118,6 +119,10 @@ function App() {
           budget={state.budget}
           expenses={state.expenses}
         />
+
+        <div className='bg-white rounded-2xl shadow-xl p-6 backdrop-blur-lg bg-opacity-90'>
+          <MonthlyExpenseSummary expenses={state.expenses}/>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-8">

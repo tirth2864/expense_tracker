@@ -6,7 +6,7 @@ import { Trash2, Edit2, Check, X } from 'lucide-react';
 interface ExpenseListProps {
   expenses: Expense[];
   onDelete: (id: string) => void;
-  onEdit: (updatedExpense: Expense) => void; // New prop
+  onEdit: (updatedExpense: Expense) => void; 
   filter: string;
   onResetFilters: () => void;
 }
