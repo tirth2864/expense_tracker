@@ -35,6 +35,15 @@ function App() {
     setState(prev => ({ ...prev, budget }));
   };
 
+  const handleExpenseEdit = (updatedExpense: Expense) => {
+    setState(prev => ({
+      ...prev,
+      expenses: prev.expenses.map(expense => 
+        expense.id === updatedExpense.id ? updatedExpense : expense
+        ),
+    }));
+  };
+
   const handleExpenseSubmit = (newExpense: Omit<Expense, 'id'>) => {
     const expense: Expense = {
       ...newExpense,
@@ -147,6 +156,7 @@ function App() {
             <ExpenseList
               expenses={state.expenses}
               onDelete={handleExpenseDelete}
+              onEdit={handleExpenseEdit}
               filter={filter}
               onResetFilters={resetFilters}
             />
