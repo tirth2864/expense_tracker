@@ -72,6 +72,15 @@ function App() {
     }
   };
 
+  const handleUndoDelete = (expense: Expense) => {
+    setState(prev => ({
+      ...prev,
+      expenses: [...prev.expenses, expense], // ✅ Corrected
+    }));
+  };
+  
+  
+
   const handleDeleteCategory = (category: string) => {
     setState(prev => ({
       ...prev,
@@ -162,6 +171,7 @@ function App() {
               expenses={state.expenses}
               onDelete={handleExpenseDelete}
               onEdit={handleExpenseEdit}
+              onUndoDelete={handleUndoDelete}
               filter={filter}
               onResetFilters={resetFilters}
             />
