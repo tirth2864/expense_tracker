@@ -75,7 +75,7 @@ function App() {
   const handleUndoDelete = (expense: Expense) => {
     setState(prev => ({
       ...prev,
-      expenses: [...prev.expenses, expense], // ✅ Corrected
+      expenses: [...prev.expenses, expense], 
     }));
   };
   
