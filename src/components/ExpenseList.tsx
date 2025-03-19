@@ -70,29 +70,32 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, onDelete, on
   };
 
   return (
-    <div className="space-y-4 max-h-[500px] overflow-y-auto pr-2 scrollbar-none">
-      <div className="flex flex-col sm:flex-row gap-4 items-end">
+    <div className="space-y-6 max-h-[500px] overflow-y-auto pr-2 scrollbar-none">
+
+      {/* Date Filter Inputs */}
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 bg-white shadow-md rounded-lg">
         {['Start Date', 'End Date'].map((label, idx) => (
-          <div key={label} className="flex-1">
+          <div key={label} className="flex flex-col">
             <label className="block text-sm font-medium text-gray-700 mb-1">{label}</label>
             <input
               type="date"
               value={idx === 0 ? startDate : endDate}
               onChange={(e) => (idx === 0 ? setStartDate(e.target.value) : setEndDate(e.target.value))}
-              className="w-full p-2 rounded-lg border-gray-200 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+              className="w-full p-2 border border-gray-300 rounded-lg shadow-sm focus:border-blue-500 focus:ring-blue-500"
             />
           </div>
         ))}
         <button
           onClick={clearFilters}
-          className="px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 text-lg font-medium shadow-lg hover:shadow-xl"
+          className="self-end px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-lg"
         >
           Reset
         </button>
       </div>
 
+      {/* Expense List */}
       {filteredExpenses.map(({ id, name, amount, date, category }) => (
-        <div key={id} className="flex flex-col sm:flex-row items-center justify-between p-4 bg-white rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-200">
+        <div key={id} className="flex flex-col sm:flex-row items-center justify-between p-5 bg-white rounded-xl shadow-lg border border-gray-200 hover:shadow-xl transition duration-300">
           {editExpenseId === id ? (
             <div className="flex-1 space-y-2">
               {['name', 'amount', 'date', 'category'].map((field) => (
@@ -101,42 +104,53 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, onDelete, on
                   type={field === 'amount' ? 'number' : field === 'date' ? 'date' : 'text'}
                   value={(editedExpense as any)?.[field] || ''}
                   onChange={(e) => setEditedExpense({ ...editedExpense!, [field]: field === 'amount' ? parseFloat(e.target.value) || 0 : e.target.value })}
-                  className="w-full p-2 border rounded-lg"
+                  className="w-full p-2 border border-gray-300 rounded-lg"
                 />
               ))}
             </div>
           ) : (
             <div className="flex-1">
-              <h3 className="font-medium text-gray-800">{name}</h3>
-              <div className="text-sm text-gray-500">
-                <span>{date}</span>
-                <span className="mx-2">•</span>
-                <span className="capitalize">{category}</span>
+              <h3 className="font-medium text-gray-900 text-lg">{name}</h3>
+              <div className="text-sm text-gray-500 flex gap-2">
+                <span className="bg-gray-100 px-2 py-1 rounded-md">{date}</span>
+                <span className="bg-gray-100 px-2 py-1 rounded-md capitalize">{category}</span>
               </div>
             </div>
           )}
 
+          {/* Action Buttons */}
           <div className="flex items-center gap-4 mt-4 sm:mt-0">
             {editExpenseId === id ? (
               <>
-                <button onClick={handleSaveClick} className="p-1.5 text-green-600 hover:bg-green-50 rounded-lg"><Check size={18} /></button>
-                <button onClick={() => setEditExpenseId(null)} className="p-1.5 text-gray-600 hover:bg-gray-100 rounded-lg"><X size={18} /></button>
+                <button onClick={handleSaveClick} className="p-2 text-green-600 hover:bg-green-50 rounded-lg">
+                  <Check size={20} />
+                </button>
+                <button onClick={() => setEditExpenseId(null)} className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                  <X size={20} />
+                </button>
               </>
             ) : (
               <>
-                <span className="font-medium text-gray-900">{formatCurrency(amount)}</span>
-                <button onClick={() => handleEditClick({ id, name, amount, date, category })} className="p-1.5 text-blue-600 hover:bg-blue-50 rounded-lg"><Edit2 size={18} /></button>
-                <button onClick={() => handleDelete(id)} className="p-1.5 text-red-600 hover:bg-red-50 rounded-lg"><Trash2 size={18} /></button>
+                <span className="font-semibold text-gray-800 text-lg">{formatCurrency(amount)}</span>
+                <button onClick={() => handleEditClick({ id, name, amount, date, category })} className="p-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                  <Edit2 size={20} />
+                </button>
+                <button onClick={() => handleDelete(id)} className="p-2 text-red-600 hover:bg-red-50 rounded-lg">
+                  <Trash2 size={20} />
+                </button>
               </>
             )}
           </div>
         </div>
       ))}
 
+      {/* Undo Snackbar */}
       {showUndo && (
-        <div className="fixed bottom-1/2 left-1/2 transform -translate-x-1/2 translate-y-1/2 z-50 bg-gray-900 text-white px-6 py-3 rounded-lg flex items-center gap-4 shadow-lg">
+        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 bg-gray-900 text-white px-6 py-3 rounded-lg flex items-center gap-4 shadow-lg">
           <p>Expense deleted.</p>
-          <button onClick={handleUndo} className="text-blue-400 hover:text-blue-300 flex items-center"><Undo size={16} className="mr-1" />Undo</button>
+          <button onClick={handleUndo} className="text-blue-400 hover:text-blue-300 flex items-center">
+            <Undo size={16} className="mr-1" />Undo
+          </button>
         </div>
       )}
     </div>
