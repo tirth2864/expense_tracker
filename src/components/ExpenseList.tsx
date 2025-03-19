@@ -87,7 +87,7 @@ export const ExpenseList: React.FC<ExpenseListProps> = ({ expenses, onDelete, on
         ))}
         <button
           onClick={clearFilters}
-          className="self-end px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-lg"
+          className="self-end px-4 py-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 shadow-lg"
         >
           Reset
         </button>
